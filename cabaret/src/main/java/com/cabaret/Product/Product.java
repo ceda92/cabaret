@@ -1,9 +1,20 @@
-package com.cabaret;
+package com.cabaret.Product;
+
+import jakarta.persistence.*;
 
 import java.util.Objects;
-
+@Entity
 public class Product {
-
+@Id
+@SequenceGenerator(
+        name = "product_id_sequence",
+        sequenceName = "product_id_sequence",
+        allocationSize = 1
+)
+@GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "product_id_sequence"
+)
     private long id;
     private String name;
     private int amount;
