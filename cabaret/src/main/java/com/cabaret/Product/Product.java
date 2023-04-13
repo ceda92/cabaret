@@ -1,9 +1,13 @@
 package com.cabaret.Product;
 
+import com.cabaret.Order_Item.Order_Item;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-@Entity
+@Entity(name = "Product")
+@Table(name = "product")
 public class Product {
 @Id
 @SequenceGenerator(
@@ -20,6 +24,12 @@ public class Product {
     private int amount;
     private double price;
 
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Order_Item>orderItemList = new ArrayList<>();
     public Product(long id, String name, int amount, double price) {
         this.id = id;
         this.name = name;

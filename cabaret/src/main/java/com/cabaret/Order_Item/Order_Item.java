@@ -1,10 +1,13 @@
 package com.cabaret.Order_Item;
 
+import com.cabaret.Orders.Orders;
+import com.cabaret.Product.Product;
 import jakarta.persistence.*;
 
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Order_Item")
+@Table(name = "order_item")
 public class Order_Item {
     @Id
     @SequenceGenerator( name = "order_item_id_sequence",
@@ -17,8 +20,12 @@ public class Order_Item {
     )
     private long id;
     private int amount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Orders orders;
 
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Product product;
     @Override
     public String toString() {
         return "Order_Item{" +

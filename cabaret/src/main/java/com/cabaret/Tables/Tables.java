@@ -1,10 +1,15 @@
 package com.cabaret.Tables;
 
+import com.cabaret.Orders.Orders;
 import jakarta.persistence.*;
+import org.hibernate.action.internal.OrphanRemovalAction;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "Tables")
+@Table(name = "tables")
 public class Tables {
     @Id
     @SequenceGenerator(name = "tables_id_sequence",
@@ -16,6 +21,13 @@ public class Tables {
     )
     private long id;
     private String tableNumber;
+
+    @OneToMany(
+            mappedBy = "tables",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Orders>ordersList = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

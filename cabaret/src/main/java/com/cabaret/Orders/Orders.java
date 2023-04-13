@@ -1,11 +1,16 @@
 package com.cabaret.Orders;
 
+import com.cabaret.Order_Item.Order_Item;
+import com.cabaret.Tables.Tables;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Orders")
+@Table(name = "orders")
 public class Orders {
    @Id
    @SequenceGenerator(
@@ -19,6 +24,15 @@ public class Orders {
     private long id;
     private boolean isActive;
     private LocalDateTime dateTime;
+
+    @OneToMany(
+            mappedBy = "orders",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Order_Item> orderItemList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Tables tables;
 
     @Override
     public String toString() {
